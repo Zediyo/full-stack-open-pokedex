@@ -1,5 +1,7 @@
-#!/bin/bash
-
-echo "Hello from shell script"
-
-exit 0
+response=$(curl -s https://crimson-violet-5457.fly.dev/health)
+expected = ok
+if [ $response = $expected ]
+  then
+    exit 0
+  else
+    exit 1
