@@ -51,12 +51,12 @@ processes = []
     [services.http_checks.headers]
 
   [[services.script_checks]]
-	command       = "health_check"
+	command       = "health_check.sh"
 	args          = []
-	grace_period  = "1s"
-	interval      = "5s"
+	grace_period  = "1000"
+	interval      = "5000"
 	restart_limit = 0
-	timeout       = "1s"
+	timeout       = "1000"
 
 
 [deploy]
