@@ -33,6 +33,13 @@ jobs:
          command: npm run test:e2e
          start: npm run start-prod
          wait-on: http://localhost:5000
+      - name: Test Failure
+        uses: rjstone/discord-webhook-notify@v1
+        if: failure()
+        with:
+         severity: error
+         details: Test Failed!
+         webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
   deploy:
    if: "github.event_name == 'push' && !contains(github.event.head_commit.message, '#skip')"
    runs-on: ubuntu-20.04
@@ -46,3 +53,10 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         DEFAULT_BUMP: "patch"
+    - name: Test Success
+      uses: rjstone/discord-webhook-notify@v1
+      if: success()
+      with:
+        severity: info
+        details: Test Succeeded!
+        webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
